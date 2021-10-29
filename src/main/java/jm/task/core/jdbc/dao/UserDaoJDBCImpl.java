@@ -84,7 +84,7 @@ public class UserDaoJDBCImpl implements UserDao {
             e.printStackTrace();
         }
 
-        return users;
+       return users;
     }
 
     // Очистка содержания таблицы
