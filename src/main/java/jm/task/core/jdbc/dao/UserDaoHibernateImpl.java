@@ -2,7 +2,6 @@ package jm.task.core.jdbc.dao;
 
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -136,8 +135,11 @@ public class UserDaoHibernateImpl implements UserDao {
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            Query query = session.createQuery("delete from User");
-            query.executeUpdate();
+            final List<User> instances = session.createCriteria(User.class).list();
+
+            for (Object o : instances) {
+                session.delete(o);
+            }
 
             session.getTransaction().commit();
             
